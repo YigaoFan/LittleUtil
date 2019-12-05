@@ -1,0 +1,81 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>JSON Compare</title>
+</head>
+
+<body>
+  <form action="/my-handling-form-page" method="POST" id="id-json-form">
+    <div>
+      <label for="msg">JSON 1</label>
+      <textarea id="id-json1"></textarea>
+    </div>
+    <div>
+      <label for="msg">JSON 2</label>
+      <textarea id="id-json2"></textarea>
+    </div>
+    <div class="button">
+      <button type="submit" id="id-button">compare</button>
+    </div>
+  </form>
+  <hr>
+  <p>JSON 1 more:</p>
+  <p id="id-json1-more"></p>
+  <hr>
+  <p>JSON 2 more:</p>
+  <p id="id-json2-more"></p>
+
+  <script>
+    var log = console.log.bind(console)
+    var domQuery = document.querySelector.bind(document)
+    domQuery('#id-button').addEventListener('click', function () {
+      var str1 = domQuery('#id-json1').value
+      var str2 = domQuery('#id-json2').value
+
+      var json1 = JSON.parse(str1)
+      var json2 = JSON.parse(str2)
+
+      var json1MoreShow = domQuery('#id-json1-more')
+      json1MoreShow.innerHTML = addNewLineIn(moreThan(json1, json2))
+
+      var json2MoreShow = domQuery('#id-json2-more')
+      json2MoreShow.innerHTML = addNewLineIn(moreThan(json2, json1))
+    })
+    // caller should ensure item1 should not be null or undefine
+    // order influence
+    var moreThan = function (item1, item2) {
+      var more = []
+      if (typeof (item1) == 'object' && typeof (item2) == 'object') {
+        for (var k in item1) {
+          if (item2[k] == null) {
+            more.push(k + '.' + JSON.stringify(item1[k]))
+          } else {
+            moreThan(item1[k], item2[k]).forEach((e) => {
+              more.push(k + '.' + e)
+            })
+          }
+        }
+      } else if (typeof (item1) != typeof (item2)) {
+        more.push(item1.toString())
+      } else {
+        if (item1 != item2) {
+          more.push(item1.toString())
+        }
+      }
+
+      return more
+    }
+
+    var addNewLineIn = function (array) {
+      var str = ''
+      for (var i = 0; i < array.length; ++i) {
+        str += array[i].toString() + '<Br/>'
+      }
+
+      return str
+    }
+  </script>
+</body>
+
+</html>
