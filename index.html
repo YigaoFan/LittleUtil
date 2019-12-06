@@ -6,7 +6,8 @@
 </head>
 
 <body>
-  <form id="id-json-form">
+  <form id="id-json-form" action="\">
+    <!-- TODO how to reduce the refresh operation -->
     <div>
       <label for="msg">JSON 1</label>
       <textarea id="id-json1"></textarea>
@@ -16,7 +17,7 @@
       <textarea id="id-json2"></textarea>
     </div>
     <div class="button">
-      <button type="submit" id="id-button">compare</button>
+      <button id="id-button">compare</button>
     </div>
   </form>
   <hr>
@@ -56,12 +57,8 @@
             })
           }
         }
-      } else if (typeof (item1) != typeof (item2)) {
+      } else if (item1 != item2) {
         more.push(item1.toString())
-      } else {
-        if (item1 != item2) {
-          more.push(item1.toString())
-        }
       }
 
       return more
