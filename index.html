@@ -3,18 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <title>JSON Compare</title>
+  <style>
+    iframe {
+     display: none;
+    }
+  </style>
 </head>
 
 <body>
-  <form id="id-json-form" action="\">
+  <iframe name="frame"></iframe>
+  <form id="id-json-form" action="" target="frame">
     <!-- TODO how to reduce the refresh operation -->
     <div>
       <label for="msg">JSON 1</label>
-      <textarea id="id-json1"></textarea>
+      <textarea id="id-json1" cols="25" rows="10"></textarea>
     </div>
     <div>
       <label for="msg">JSON 2</label>
-      <textarea id="id-json2"></textarea>
+      <textarea id="id-json2" cols="25" rows="10"></textarea>
     </div>
     <div class="button">
       <button id="id-button">compare</button>
